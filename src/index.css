@@ -1,13 +1,134 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap');
+
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  padding: 0;
+}
+
+body {
+  font-family: 'Outfit', 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+p{
+  font-size: 1.5rem;
+}
+
+h1{
+  font-size: 3.2rem;
+}
+
+.app{
+  width: 100%;
+  height: 100vh;
+  position : relative;
+  background-color: rgba(0,0,0,0.3);
+  color: white  ;
+}
+
+.app:before{
+  content: '';
+  background: url('./assets/cloudy.jpg') no-repeat center center/cover;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.app .search{
+  text-align: center;
+  /* padding: 1rem; */
+  padding-top: 1rem;
+  padding: 0.5rem
+}
+
+.app input{
+  padding: 0.7rem 1.5rem;
+  font-size: 1.2rem;
+  border-radius: 25px;
+  border: 1px solid rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.1);
+  color: white;
+}
+
+.container  {
+  max-width: 700px;
+  height: 500px;
+  margin: auto;
+  padding: 0 1rem;
+  position: relative;
+  top: 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+}
+
+::placeholder{
+  color: #f8f8f8;
+}
+
+.app .top{
+  width: 100%;
+  /* color: red; */
+  margin: 1rem auto;
+  text-align: center;
+  text-shadow: black;
+}
+
+/* .app .description{
+  position: relative;
+  right: -90%; 
+  transform-origin: 0 0;
+  transform: rotate(269deg);
+} */
+
+.app .middle{
+
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 1rem auto;
+
+
+}
+
+@media screen and (max-width: 768px){
+  .app .middle{
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll ;
+    gap: 1em;
+    padding-top: 7em;
+  }
+}
+
+.app .feels, .app .humidity, .app .wind, .app .pressure, .app .visibility{
+  text-align: left;
+  height: 8rem;
+  width: 8rem;
+  /* height: auto;
+  width: auto; */
+  padding: 1rem;
+  border-radius: 2%;
+  border: 10%;
+  /* backdrop-filter: blur(200px); */
+  background: rgba(255,255,255,0.3);
+}
+
+.bold{
+  font-weight: 700;
+}
+
+.heading{
+  font-weight: bolder;
+  font-size: 0.6rem;
+  backdrop-filter: blur(20px);
+  text-transform: uppercase;
 }
