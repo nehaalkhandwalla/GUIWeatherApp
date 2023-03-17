@@ -9,6 +9,8 @@ function App() {
   const [location, setLocation] = useState('')
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=b6f23680c3f58e62f3515726f00a367e&units=metric`
 
+  
+
   //test change
 
   const searchLocation = (event) => {
@@ -50,22 +52,36 @@ function App() {
 
         {data.name !=undefined &&
           <div className="middle">
-            <div className="feels">
-              <p className='heading'>Feels like </p>
-              {data.main ? <p className='bold'>{data.main.feels_like.toFixed()}°C</p> : null}
-              
+            <div className="feels_humidity">
+              <div className="feels">
+                <p className='heading'>Feels like </p>
+                {data.main ? <p className='bold'>{data.main.feels_like.toFixed()}°C</p> : null}
+                
+              </div>
+              <div className="humidity">
+                <p className='heading'>Humidity </p>
+                {data.main ? <p className='bold'>{data.main.humidity}%</p> : null}
+              </div>
             </div>
-            <div className="humidity">
-              <p className='heading'>Humidity </p>
-              {data.main ? <p className='bold'>{data.main.humidity}%</p> : null}
+            <div className="wind_pressure">
+              <div className="wind">
+                <p className='heading'>Wind Speed </p>
+                {data.wind ? <p className='bold'>{data.wind.speed.toFixed()}mph</p> : null}
+              </div>
+              <div className="pressure">
+                <p className='heading'>Pressure </p>
+                {data.main ? <p className='bold'>{data.main.pressure}hPa</p> : null}
+              </div>
             </div>
-            <div className="wind">
-              <p className='heading'>Wind Speed </p>
-              {data.wind ? <p className='bold'>{data.wind.speed.toFixed()}mph</p> : null}
-            </div>
-            <div className="pressure">
-              <p className='heading'>Pressure </p>
-              {data.main ? <p className='bold'>{data.main.pressure}hPa</p> : null}
+            <div className="sunrise_sunset">
+              <div className="sunrise">
+                <p className='heading'>Sunrise </p>
+                {data.sys ? <p className='bold'>{new Date(data.sys.sunrise * 1000).toLocaleTimeString()}</p> : null}
+              </div>
+              <div className="sunset">
+                <p className='heading'>Sunset </p>
+                {data.sys ? <p className='bold'>{new Date(data.sys.sunset * 1000).toLocaleTimeString()}</p> : null}
+              </div>
             </div>
             <div className="visibility">
               <p className='heading'>Visibility </p>

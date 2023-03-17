@@ -91,6 +91,9 @@ h1{
 
 .app .middle{
 
+  padding-top: 15em;
+  padding-bottom: 15em;
+  /* padding-top: 7rem; */
   width: 100%;
   display: flex;
   justify-content: space-evenly;
@@ -101,18 +104,28 @@ h1{
 
 @media screen and (max-width: 768px){
   .app .middle{
+    /* margin-top: 2rem; */
+    
     flex-direction: column;
     align-items: center;
     overflow-y: scroll ;
     gap: 1em;
-    padding-top: 7em;
+    /* padding-top: 7em; */
   }
 }
 
-.app .feels, .app .humidity, .app .wind, .app .pressure, .app .visibility{
+.app .feels_humidity, .app .wind_pressure, .app .sunrise_sunset, .app .visibility{
+  display: flex;
+  gap: 1em;
+  align-items: left;
+  margin-left: 1em;
+}
+.app .feels, .app .humidity, .app .wind, .app .pressure, .app .sunrise, .app .sunset, .app .visibility{
   text-align: left;
   height: 8rem;
   width: 8rem;
+  /* flex-direction: row; */
+  gap: 1em;
   /* height: auto;
   width: auto; */
   padding: 1rem;
