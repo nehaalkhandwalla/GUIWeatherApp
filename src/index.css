@@ -24,7 +24,7 @@ h1{
 
 .app{
   width: 100%;
-  height: 100vh;
+  height: 100em;
   position : relative;
   background-color: rgba(0,0,0,0.3);
   color: white  ;
@@ -32,7 +32,8 @@ h1{
 
 .app:before{
   content: '';
-  background: url('./assets/cloudy.jpg') no-repeat center center/cover;
+  /* background: url('./assets/cloudy.jpg') no-repeat center center/cover; */
+  background: blue;
   position: absolute;
   width: 100%;
   height: 100%;
@@ -89,30 +90,31 @@ h1{
   transform: rotate(269deg);
 } */
 
+.app .future{
+  width: 100%;
+  /* color: red; */
+  margin: 1rem auto;
+  text-align: center;
+  color: red;
+}
 .app .middle{
 
-  padding-top: 15em;
-  padding-bottom: 15em;
+  padding-top: 20em;
+  padding-bottom: 30em;
   /* padding-top: 7rem; */
+  /* border: 2pt solid red; */
   width: 100%;
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: row;
+  /* justify-content: space-evenly; */
+  /* align-items: center; */
+  flex-wrap: wrap;
+  row-gap: 1rem;
   margin: 1rem auto;
 
 
 }
 
-@media screen and (max-width: 768px){
-  .app .middle{
-    /* margin-top: 2rem; */
-    
-    flex-direction: column;
-    align-items: center;
-    overflow-y: scroll ;
-    gap: 1em;
-    /* padding-top: 7em; */
-  }
-}
 
 .app .feels_humidity, .app .wind_pressure, .app .sunrise_sunset, .app .visibility{
   display: flex;
@@ -120,18 +122,17 @@ h1{
   align-items: left;
   margin-left: 1em;
 }
-.app .feels, .app .humidity, .app .wind, .app .pressure, .app .sunrise, .app .sunset, .app .visibility{
+
+.infocard{
   text-align: left;
   height: 8rem;
   width: 8rem;
   /* flex-direction: row; */
   gap: 1em;
-  /* height: auto;
-  width: auto; */
+
   padding: 1rem;
-  border-radius: 2%;
+  border-radius: 10%;
   border: 10%;
-  /* backdrop-filter: blur(200px); */
   background: rgba(255,255,255,0.3);
 }
 
