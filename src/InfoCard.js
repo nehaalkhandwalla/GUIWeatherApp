@@ -1,5 +1,5 @@
 
-const InfoCard = ({ title, cond, data, cn }) => {
+const InfoCard = ({ title, cond, data}) => {
     return (
         <div className="infocard">
             <p className='heading'>{title} </p>

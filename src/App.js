@@ -2,6 +2,9 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import InfoCard from './InfoCard';
 import Clothing from './Clothing';
+import rainpic from './assets/rain.png'
+import Whours from './Whours';
+
 
 function App() {
 //useState is gonna take in 2 values, the first one is the value of the state, the second one is the function that we use to update the state
@@ -12,6 +15,7 @@ function App() {
   const [whours, setwhours] = useState([])
   const [dailyData, setDailyData] = useState([])
   const [condition, setCondition] = useState('')
+  const [hours, setHours] = useState([])
   // const []
 
 
@@ -57,7 +61,7 @@ function App() {
           dailyData.push(dData[i])
         }
 
-        console.log("daily data", dailyData)
+
         setDailyData(dailyData)
       })
     });
@@ -68,7 +72,11 @@ function App() {
         const current = new Date();
         const hour = current.getHours();
         const numHours = 12
+
+        // setHours(current.getSeconds())
         setCondition(data.current.condition.text)
+        console.log(data)
+        console.log(" CONDITION -- ", condition)
         var wHours = data.forecast.forecastday[0].hour.slice(hour)
 
         if (wHours.length < numHours) {
@@ -78,7 +86,7 @@ function App() {
         }
 
 
-        console.log("whours", wHours)
+
         setwhours(wHours)
 
 
@@ -116,7 +124,7 @@ function App() {
     let urlMap = `https://tile.openweathermap.org/map/precipitation_new/10//{y}.png?appid=d3b4a26d4df70bc4550003bce6414b23`
     // let url3=`http://maps.openweathermap.org/maps/2.0/weather/TS10/12/${lat}/${lon}?appid=d3b4a26d4df70bc4550003bce6414b23`
     axios.get(urlMap).then((response) => {
-      console.log('jjj',response);
+
       // setMap(response.data);
       // console.log(response.data);
     })
@@ -127,7 +135,7 @@ function App() {
     const url2 = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=55bbb0b7a70f89bb6854377795f2b220`
 
     axios.get(url2).then((response) => {
-      console.log("jkllkkllk",response);
+
 
       setMoreData(response.data);
       // console.log(response.data);
@@ -138,8 +146,9 @@ function App() {
 
 
   return (
-    <div className="app">
 
+    <div className={condition== "Rain" ? "app rain": condition== "Sunny" ? "app sunny" :  "app other"}>
+    
 
       <div className="search">
         <input type="text" 
@@ -158,36 +167,51 @@ function App() {
             {data.main ? <h1>{data.main.temp.toFixed()}°C</h1> : null} 
           </div>
           <div className="icon">
-            {data.weather ? <img src={`http://openweathermap.org/img/w/${data.weather[0].icon}.png`} alt=""/> : null}
+            {/* {data.weather ? <img src={`http://openweathermap.org/img/w/${data.weather[0].icon}.png`} alt=""/> : null} */}
+            {whours[0] ? <img src={whours[0].condition.icon} alt=""/> : null}
           </div>
           <div className="description">
-            {data.weather ? <p>{data.weather[0].main}</p> : null}
+            {/* {data.weather ? <p>{data.weather[0].description}</p> : null} */}
+            {whours[0] ? <p>{whours[0].condition.text}</p> : null}
+            {/* {whours[0] ? <p>{whours[0].condition.text}</p> : null} */}
           </div>
           <div className="high-low">
             {data.main ? <p>H:{data.main.temp_min.toFixed()}° L:{data.main.temp_max.toFixed()}°</p> : null}
           </div>
+          {data.name !=undefined &&
+          <div className="preview">
+            {whours[0] ? <p><img src={rainpic} alt="rain image" height="30" width="20"></img>{whours[0].will_it_rain}%</p> : null}
+            {whours[0] ? <p>{whours[0].humidity}%</p> : null}
+            {whours[0] ? <p>{whours[0].gust_mph}mph</p> : null}
+          </div>
+          }
         </div>
        {/* add future forecast here */}
        
-        {data.name != undefined &&
-          <div className="future">
-            <div className="day1">
-              <p>Day 1</p>
-              <p>Time:{moreData.list ? <p>{new Date(moreData.list[0].dt * 1000).toLocaleTimeString()}</p> : null}</p>
-              <p>Temp:{moreData.list ? <p>{moreData.list[0].main.temp.toFixed()}°C</p> : null}</p>
+    <div>
+       {data.name != undefined &&
+            <div className="next_hours">
+              {/* <p>Today</p> */}
+              {/* <p>img: {whours[0].condition.}</p> */}
+              {
+              whours.map((w, index)=>(
+                <div className="contents">
+                  <Whours val={w} num={index}/>
+                </div>))
+              }
+
             </div>
-          </div>
+
         }
+</div>
 
 
-
-
+        {/* {whours[0].condition== ? } */}
         {data.name !=undefined &&
-          
           <div className="middle">
             <div className="feels_humidity">
               <InfoCard title="Feels like" cond={data.main} data={data.main.feels_like.toFixed()+'°C'}/>
-              <InfoCard title="Humidity" cond={data.main} data={data.main.humidity}/>
+              <InfoCard title="Humidity" cond={data.main} data={data.main.humidity + '%'}/>
             </div>
 
             <div className="wind_pressure">
@@ -195,14 +219,16 @@ function App() {
               <InfoCard title="Pressure" cond={data.main} data={data.main.pressure+'hPa'}/>
             </div>
             <div className="sunrise_sunset">
-              <InfoCard title="Sunrise" cond={data.sys} data={new Date(data.sys.sunrise * 1000).toLocaleTimeString()}/>
-              <InfoCard title="Sunset" cond={data.sys} data={new Date(data.sys.sunset * 1000).toLocaleTimeString()}/>
+
+              <InfoCard title="Sunrise" cond={data.sys} data={new Date(data.sys.sunrise * 1000).toLocaleTimeString().slice(0,5)}/>
+              <InfoCard title="Sunset" cond={data.sys} data={new Date(data.sys.sunset * 1000).toLocaleTimeString().slice(0,5)}/>
             
             </div>
+            <div className="visibility_clothing">
               <InfoCard title="Visibility" cond={data.visibility} data={data.visibility/1000+'mi'} />
-              ghhghgghgh
-              <Clothing cond={condition}/>
-
+            {/* hello {condition} */}
+              <Clothing title="Clothing" cond={condition}/>
+            </div>
             
           </div>
         }

@@ -1,23 +1,49 @@
 
 const Clothing = ({cond}) => {
     function sd(){
-        if ({cond} == "Rain"){
-            return <p>"wear a raincoat"</p>
-        }    
-        else if ({cond} == "Clouds"){
-            return <p>"wear a big jacker"</p>
+        if ((cond === "Partly cloudy")||(cond === "scattered clouds")||(cond === "few clouds")||(cond === "broken clouds")){
+            return <p>Jumper</p>
         }
-        else if ({cond} == "Clear"){
-            return <p>"wear a t-shirt"</p>
+        else if ((cond === "Rain")||(cond === "light rain")||(cond === "moderate rain")||(cond === "heavy intensity rain")||(cond === "very heavy rain")||(cond === "extreme rain")||(cond === "freezing rain")||(cond === "light intensity shower rain")||(cond === "shower rain")||(cond === "heavy intensity shower rain")||(cond === "ragged shower rain")){
+            return <p>Rain jacket</p>
         }
+        else if (cond === "Sunny"){
+            return <p>T-shirt</p>
+        }
+        else if (cond === "Snow"){
+            return <p>Snow jacket</p>
+        }
+        else{
+            return <p>light jacket</p>
+        }
+        // if (({cond} === "Rain")||({cond} === "Drizzle")||({cond} === "Thunderstorm")){
+        //     return <p>"wear a raincoat"</p>
+        // }    
+        // else if (({cond} === "Clouds")||(cond=== "Partly Cloudy")){
+        //     return <p>"wear a jacket"</p>
+        // }
+        // else if ({cond} === "Clear"){
+        //     return <p>"wear a t-shirt"</p>
+        // }
+        // else if ({cond} === "Snow"){
+        //     return <p>"wear a snow jacket"</p>
+        // }
+        // else if ({cond} == "Sunny"){
+        //     return <p>"nehaal is d..."</p>
+        // }
+        // else{
+        //     return <p>"wear a sdfsdffs"</p>
+        // }
+    
         
 
     }
     return (
-        <div className="clothing">
-            <p className='heading'>{cond}</p>
+        <div className="infocard">
+            {/* {cond} */}
+            <p className='heading'>Recommended clothing</p>
             {/* {cond ? <p className='bold'>{</p> : null} */}
-            {sd()}
+            <b>{sd()}</b>
       </div>
     );
 }

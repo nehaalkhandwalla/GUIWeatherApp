@@ -6,6 +6,26 @@
   padding: 0;
 }
 
+.rain{
+  background: url('./assets/rain.gif');
+}
+
+.other{
+  background: url('./assets/Sunny.gif') no-repeat center center/cover;
+  animation: 2s linear infinite;
+  animation-direction: reverse;
+}
+
+
+@keyframes play-reverse {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 -1000px; /* adjust the value to fit your GIF height */
+  }
+}
+
 body {
   font-family: 'Outfit', 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -24,19 +44,24 @@ h1{
 
 .app{
   width: 100%;
-  height: 100em;
+  height: 100vh;
+  /* overflow-x: scroll; */
+  /* height: 100em; */
   position : relative;
   background-color: rgba(0,0,0,0.3);
-  color: white  ;
+  color: rgb(97, 97, 97)  ;
 }
 
-.app:before{
+.app{
+  overflow-x: hidden;
   content: '';
   /* background: url('./assets/cloudy.jpg') no-repeat center center/cover; */
-  background: blue;
+  /* background: rgb(34, 34, 109); */
+  
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: 100vh;
+
   top: 0;
   left: 0;
   z-index: -1;
@@ -60,11 +85,12 @@ h1{
 
 .container  {
   max-width: 700px;
-  height: 500px;
+  /* height: 500px; */
+  /* border: 5pt solid red; */
   margin: auto;
   padding: 0 1rem;
   position: relative;
-  top: 10%;
+  /* top: 10%; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -90,19 +116,58 @@ h1{
   transform: rotate(269deg);
 } */
 
-.app .future{
-  width: 100%;
-  /* color: red; */
-  margin: 1rem auto;
+.hour{
   text-align: center;
-  color: red;
+  /* border: 3pt solid green; */
+  /* background-color: rgba(255,255,255,0.3); */
+  border-radius: 2em;
+  gap: 1em;
+  /* font-size: 0.00001em; */
+  display: flex;
+  flex-direction: column;
+  /* gap: 0.5em; */
+  /* padding-top: 1em; */
+  /* padding-left: 1em; */
+  size: 1em;
+  width: 8em;
+  height: 10em;
+  /* display: flex; */
 }
+
+.app .preview{
+  margin-top: 2em;
+  display: flex;
+  justify-content: space-evenly;
+  border-radius: 1em;
+  background-color: rgb(255,255,255,0.5);
+}
+
+.app .next_hours{
+  display: flex;
+  /* border: 3pt solid green; */
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 1em;
+  /* flex-direction: row; */
+  /* flex-wrap: wrap; */
+  gap: 1em;
+  align-items: center;
+  /* justify-content: flex-start; */
+  width: 100%;
+  overflow-x: scroll;
+}
+.app .contents{
+  gap: 2em;
+  /* width: 10em; */
+  /* padding-bottom: 3em; */
+}
+
 .app .middle{
 
-  padding-top: 20em;
-  padding-bottom: 30em;
+  /* padding-top: 20em; */
+  padding-bottom: 3em;
   /* padding-top: 7rem; */
   /* border: 2pt solid red; */
+  justify-content: center;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -116,7 +181,7 @@ h1{
 }
 
 
-.app .feels_humidity, .app .wind_pressure, .app .sunrise_sunset, .app .visibility{
+.app .feels_humidity, .app .wind_pressure, .app .sunrise_sunset, .app .visibility_clothing{
   display: flex;
   gap: 1em;
   align-items: left;
@@ -133,7 +198,7 @@ h1{
   padding: 1rem;
   border-radius: 10%;
   border: 10%;
-  background: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.5);
 }
 
 .bold{
