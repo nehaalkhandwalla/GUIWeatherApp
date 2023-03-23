@@ -9,6 +9,8 @@ import Whours from './Whours';
 import WWeather from './WWeather';
 import WDial from './WDial';
 import './index.css';
+import Dial from './Dial';
+import Wind from './Wind';
 
 
 function App() {
@@ -53,7 +55,7 @@ function App() {
     // setLon(data.coord.lon)
     getMoreData()
     fetchWeather()
-    // getMap()
+    getMap()
 
   },[lat, lon])
 
@@ -141,12 +143,13 @@ function App() {
 
   const getMap = () => {
 
-    let urlMap = `https://tile.openweathermap.org/map/precipitation_new/10//{y}.png?appid=d3b4a26d4df70bc4550003bce6414b23`
-    // let url3=`http://maps.openweathermap.org/maps/2.0/weather/TS10/12/${lat}/${lon}?appid=d3b4a26d4df70bc4550003bce6414b23`
+    // const urlMap = `https://maps.openweathermap.org/maps/2.0/weather/1h/PARAIN/10/3/2?date=1527811200&appid=4e10dff7989998c1e1b37a9f50b9b1e4`
+    const urlMap = 'http://history.openweathermap.org/data/2.5/history/city?id=2885679&type=hour&appid=4e10dff7989998c1e1b37a9f50b9b1e4'
     axios.get(urlMap).then((response) => {
+      
 
-      // setMap(response.data);
-      // console.log(response.data);
+      setMap(response.data);
+      console.log('ewdnowefnoef',response.data);
     })
    
   }
@@ -167,7 +170,7 @@ function App() {
 
   return (
     // {data.name != undefined &&
-    <div className={condition== "Rain" ? "app rain": condition== "Sunny" ? "app sunny" :  "app other"}>
+    <div className={condition.includes("rain")? "app rain": condition.includes("sun") ? "app sunny" : condition.includes("thunder") ? "app storm" : "app other"}>
      
 {/* } */}
       <div className="search">
@@ -210,10 +213,22 @@ function App() {
           }
         </div>
        {/* add future forecast here */}
-      
+       {data.name !=undefined &&
+        <div className="wind">
+          <Dial windDegree={whours[0].wind_degree}/>
+
+          <div className='w2'>
+          <InfoCard title="Wind Speed" cond={data.wind} data={data.wind.speed.toFixed()+'mph'}/>
+          <InfoCard title="Pressure" cond={data.main} data={data.main.pressure+'hPa'}/>
+          </div>
+        </div>
+       }
+
         <div>
           {data.name != undefined &&
               <div className="next_hours">
+             
+
                 <div className="day_date">
                 <p className='subheading'>Today</p>
                 <p className='subheading'>23 Mar</p>
@@ -263,9 +278,9 @@ function App() {
                 </div>
               </div> */}
               {/* <WDial/> */}
-              <InfoCard title="Wind Speed" cond={data.wind} data={data.wind.speed.toFixed()+'mph'}/>
+              {/* <Dial windDegree={whours[0].wind_degree}/> */}
+              {/* <InfoCard title="Wind Speed" cond={data.wind} data={data.wind.speed.toFixed()+'mph'}/> */}
               
-              <InfoCard title="Pressure" cond={data.main} data={data.main.pressure+'hPa'}/>
             </div>
             <div className="sunrise_sunset">
 
@@ -283,7 +298,9 @@ function App() {
         }
 
         <div className="bottom">
-            
+            <div className="Map">
+              
+            </div>
         </div>
 
         

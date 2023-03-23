@@ -7,11 +7,19 @@
 }
 
 .rain{
-  background: url('./assets/rain.gif');
+  background: url('./assets/rain.gif')no-repeat center center/cover;
+  color: white !important;
+}
+
+.storm{
+  background: url('./assets/storm.gif')no-repeat center center/cover;
 }
 
 .other{
-  background: url('./assets/Sunny.gif') no-repeat center center/cover;
+background: url('./assets/Sunny.gif') no-repeat center center/cover;
+
+  /* background: url('./assets/j6.gif') no-repeat center center/cover; */
+
   animation: 2s linear infinite;
   animation-direction: reverse;
 }
@@ -163,6 +171,8 @@ h1{
 }
 
 .next_hours{
+  /* background: url('./assets/j.gif') no-repeat center center/cover; */
+
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -191,6 +201,7 @@ h1{
   flex-wrap: wrap;
   row-gap: 1rem;
   margin: 1rem auto;
+  
 
 
 }
@@ -200,16 +211,17 @@ h1{
   display: flex;
   gap: 1em;
   align-items: left;
-  margin-left: 1em;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
 }
 
 .infocard, .ws{
   text-align: left;
-  height: 8rem;
-  width: 8rem;
+  height: 11rem;
+  width: 11rem;
   /* flex-direction: row; */
   gap: 1em;
-
+  font-size: 5em;
   padding: 1rem;
   border-radius: 10%;
   border: 10%;
@@ -220,9 +232,35 @@ h1{
   font-weight: 700;
 }
 
+
+.dial {
+position: relative;
+width: 12em;
+height: 12em;
+border-radius: 50%;
+background-color: #f2f2f2;
+border: 2px solid #ccc;
+margin-bottom: 1em;
+}
+
+.arrow {
+position: absolute;
+top: 40%;
+left: 35%;
+width: 30%;
+transform-origin: center;
+}
+
+.info{
+  font-size: 0.35em;
+  text-align: left;
+  margin-top: 1em;
+  font-weight: bold;
+}
+
 .heading{
   font-weight: bolder;
-  font-size: 0.6rem;
+  font-size: 1rem;
   backdrop-filter: blur(20px);
   text-transform: uppercase;
 }
@@ -250,6 +288,8 @@ h1{
 }
 
 .WeekAhead {
+  /* background: url('./assets/j.gif') no-repeat center center/cover; */
+
   text-transform: uppercase;
   padding-bottom: 1em;
   margin-top: 2em;
@@ -264,6 +304,21 @@ h1{
   background-color: rgb(255,255,255,0.5);
 }
 
+.wind{
+  display:flex;
+  justify-content:space-evenly;
+  flex-wrap: wrap;
+}
+
+.w2{
+  display:flex;
+  justify-content:space-evenly;
+  flex-wrap: wrap;
+  margin-bottom: 1em;
+
+  /* width: 100%; */
+  gap: 1em;
+}
 /* .wind-dial {
   width: 60px;
   height: 60px;

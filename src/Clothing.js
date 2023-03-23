@@ -2,19 +2,19 @@
 const Clothing = ({cond}) => {
     function sd(){
         if ((cond === "Partly cloudy")||(cond === "scattered clouds")||(cond === "few clouds")||(cond === "broken clouds")){
-            return <p>Jumper</p>
+            return <p className="info">Jumper</p>
         }
         else if ((cond === "Rain")||(cond === "light rain")||(cond === "moderate rain")||(cond === "heavy intensity rain")||(cond === "very heavy rain")||(cond === "extreme rain")||(cond === "freezing rain")||(cond === "light intensity shower rain")||(cond === "shower rain")||(cond === "heavy intensity shower rain")||(cond === "ragged shower rain")){
-            return <p>Rain jacket</p>
+            return <p className="info">Rain jacket</p>
         }
         else if (cond === "Sunny"){
-            return <p>T-shirt</p>
+            return <p className="info">T-shirt</p>
         }
         else if (cond === "Snow"){
-            return <p>Snow jacket</p>
+            return <p className="info">Snow jacket</p>
         }
         else{
-            return <p>light jacket</p>
+            return <p className="info">light jacket</p>
         }
         // if (({cond} === "Rain")||({cond} === "Drizzle")||({cond} === "Thunderstorm")){
         //     return <p>"wear a raincoat"</p>
