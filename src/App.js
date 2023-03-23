@@ -3,7 +3,12 @@ import axios from 'axios';
 import InfoCard from './InfoCard';
 import Clothing from './Clothing';
 import rainpic from './assets/rain.png'
+import temppic from './assets/temp.png'
+import windpic from './assets/wind.png'
 import Whours from './Whours';
+import WWeather from './WWeather';
+import WDial from './WDial';
+import './index.css';
 
 
 function App() {
@@ -16,6 +21,8 @@ function App() {
   const [dailyData, setDailyData] = useState([])
   const [condition, setCondition] = useState('')
   const [hours, setHours] = useState([])
+
+   const [windSpeed, setWindSpeed] = useState(0);
   // const []
 
 
@@ -24,6 +31,19 @@ function App() {
   const [location, setLocation] = useState('')
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=b6f23680c3f58e62f3515726f00a367e&units=metric`
   
+
+  // useEffect(() => {
+  //   const fetchWeatherData = async () => {
+  //     const response = await fetch(
+  //       "https://api.openweathermap.org/data/2.5/weather?q=Apple&appid=b6f23680c3f58e62f3515726f00a367e"
+  //     );
+  //     const data = await response.json();
+  //     setWindSpeed(data.wind.speed);
+  //   };
+  //   fetchWeatherData();
+  // }, []);
+
+  // const windDirection = windSpeed > 0 ? (windSpeed / Math.abs(windSpeed)) * 180 : 0;
 
   //test change
 
@@ -61,7 +81,7 @@ function App() {
           dailyData.push(dData[i])
         }
 
-
+        // console.log('MDJBIUYBIYVUTC',setDailyData)
         setDailyData(dailyData)
       })
     });
@@ -86,7 +106,7 @@ function App() {
         }
 
 
-
+        console.log(wHours)
         setwhours(wHours)
 
 
@@ -132,13 +152,13 @@ function App() {
   }
 
   const getMoreData = () => {
-    const url2 = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=55bbb0b7a70f89bb6854377795f2b220`
+    const url2 = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=55bbb0b7a70f89bb6854377795f2b220&units=metric`
 
     axios.get(url2).then((response) => {
 
 
       setMoreData(response.data);
-      // console.log(response.data);
+      console.log(response.data);
     })
   }
 
@@ -146,10 +166,10 @@ function App() {
 
 
   return (
-
+    // {data.name != undefined &&
     <div className={condition== "Rain" ? "app rain": condition== "Sunny" ? "app sunny" :  "app other"}>
-    
-
+     
+{/* } */}
       <div className="search">
         <input type="text" 
         className="search"
@@ -166,46 +186,66 @@ function App() {
           <div className="temp">
             {data.main ? <h1>{data.main.temp.toFixed()}°C</h1> : null} 
           </div>
+          {data.name != undefined &&
           <div className="icon">
             {/* {data.weather ? <img src={`http://openweathermap.org/img/w/${data.weather[0].icon}.png`} alt=""/> : null} */}
             {whours[0] ? <img src={whours[0].condition.icon} alt=""/> : null}
           </div>
+} {data.name != undefined &&
           <div className="description">
             {/* {data.weather ? <p>{data.weather[0].description}</p> : null} */}
             {whours[0] ? <p>{whours[0].condition.text}</p> : null}
             {/* {whours[0] ? <p>{whours[0].condition.text}</p> : null} */}
           </div>
+}
           <div className="high-low">
             {data.main ? <p>H:{data.main.temp_min.toFixed()}° L:{data.main.temp_max.toFixed()}°</p> : null}
           </div>
           {data.name !=undefined &&
           <div className="preview">
             {whours[0] ? <p><img src={rainpic} alt="rain image" height="30" width="20"></img>{whours[0].will_it_rain}%</p> : null}
-            {whours[0] ? <p>{whours[0].humidity}%</p> : null}
-            {whours[0] ? <p>{whours[0].gust_mph}mph</p> : null}
+            {whours[0] ? <p><img src={temppic} alt="temp image" height="30" width="20"></img>{whours[0].humidity}%</p> : null}
+            {whours[0] ? <p><img src={windpic} alt="wind image" height="30" width="30"></img>{whours[0].gust_mph}mph</p> : null}
           </div>
           }
         </div>
        {/* add future forecast here */}
-       
-    <div>
-       {data.name != undefined &&
-            <div className="next_hours">
-              {/* <p>Today</p> */}
-              {/* <p>img: {whours[0].condition.}</p> */}
-              {
-              whours.map((w, index)=>(
-                <div className="contents">
-                  <Whours val={w} num={index}/>
-                </div>))
-              }
+      
+        <div>
+          {data.name != undefined &&
+              <div className="next_hours">
+                <div className="day_date">
+                <p className='subheading'>Today</p>
+                <p className='subheading'>23 Mar</p>
+                </div>
+                <div className="test">
+                {/* <p>Today</p> */}
+                {/* <p>img: {whours[0].condition.}</p> */}
+                {whours.map((w, index)=>(
+                  <div className="contents">
+                    <Whours val={w} num={index}/>
+                  </div>))
+                }
+                </div>
 
+              </div>
+
+          }
+        </div>
+
+          {
+            data.name != undefined &&
+            <div className="WeekAhead">
+              <p className='subheading'>Week Ahead</p>
+
+              <WWeather cond={moreData.list} day="Fri" data1={moreData.list[0]} data2={moreData.list[0]}/>
+              <WWeather cond={moreData.list} day="Sat" data1={moreData.list[8]} data2={moreData.list[8]}/>
+              <WWeather cond={moreData.list} day="Sun"data1={moreData.list[16]} data2={moreData.list[16]}/>
+              <WWeather cond={moreData.list} day="Mon"data1={moreData.list[24]} data2={moreData.list[24]}/>
+              <WWeather cond={moreData.list} day="Tue" data1={moreData.list[32]} data2={moreData.list[32]}/>
+              {/* <WWeather cond={moreData.list} data1={moreData.list[40].main} data2={moreData.list[40].main}/> */}
             </div>
-
-        }
-</div>
-
-
+          }
         {/* {whours[0].condition== ? } */}
         {data.name !=undefined &&
           <div className="middle">
@@ -215,7 +255,16 @@ function App() {
             </div>
 
             <div className="wind_pressure">
+              {/* <div className="ws">
+                <p className='heading'>Wind</p>
+                {data.wind ? <p>{data.wind.speed.toFixed()}mph</p> : null}
+                <div className="wind-dial" style={{ transform: `rotate(${windDirection}deg)` }}>
+                  <div className="wind-arrow"></div>
+                </div>
+              </div> */}
+              {/* <WDial/> */}
               <InfoCard title="Wind Speed" cond={data.wind} data={data.wind.speed.toFixed()+'mph'}/>
+              
               <InfoCard title="Pressure" cond={data.main} data={data.main.pressure+'hPa'}/>
             </div>
             <div className="sunrise_sunset">
@@ -234,7 +283,7 @@ function App() {
         }
 
         <div className="bottom">
-
+            
         </div>
 
         
