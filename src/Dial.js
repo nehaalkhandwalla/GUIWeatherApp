@@ -44,7 +44,7 @@ const Dial = ({ windDegree }) => {
       <div className="degree-markings">{degreeMarkings}</div>
       <img src={arrow} className="arrow"
 style={arrowStyle} />
-<div style={unitStyle}>Wind Direction</div>
+<div style={unitStyle}>Wind hh</div>
 </div>
 );
 };
