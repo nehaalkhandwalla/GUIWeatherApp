@@ -202,7 +202,7 @@ function App() {
           </div>
 }
           <div className="high-low">
-            {data.main ? <p>H:{data.main.temp_min.toFixed()}° L:{data.main.temp_max.toFixed()}°</p> : null}
+            {data.main ? <p>H:{data.main.temp_max.toFixed()}° L:{data.main.temp_min.toFixed()}°</p> : null}
           </div>
           {data.name !=undefined &&
           <div className="preview">
