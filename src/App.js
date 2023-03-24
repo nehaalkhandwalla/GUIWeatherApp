@@ -23,6 +23,8 @@ function App() {
   const [dailyData, setDailyData] = useState([])
   const [condition, setCondition] = useState('')
   const [hours, setHours] = useState([])
+  const [days, setDays] = useState([]);
+  const [cond, setCond] = useState('cloudy')
 
    const [windSpeed, setWindSpeed] = useState(0);
   // const []
@@ -49,6 +51,8 @@ function App() {
 
   //test change
 
+
+
   useEffect(() => {
     // console.log('njjnjn')
     // setLat(data.coord.lat)
@@ -56,8 +60,21 @@ function App() {
     getMoreData()
     fetchWeather()
     getMap()
+    setDays(getNextFiveDays());
 
   },[lat, lon])
+
+  function getNextFiveDays() {
+    const today = new Date();
+    const days = [];
+  
+    for (let i = 1; i <= 5; i++) {
+      const nextDay = new Date(today.getTime() + i * 24 * 60 * 60 * 1000);
+      days.push(nextDay);
+    }
+  
+    return days;
+  }
 
   
   const fetchWeather = async () => {
@@ -98,7 +115,7 @@ function App() {
         // setHours(current.getSeconds())
         setCondition(data.current.condition.text)
         console.log(data)
-        console.log(" CONDITION -- ", condition)
+        console.log(" CONDITION -- ", whours[0].condition.text)
         var wHours = data.forecast.forecastday[0].hour.slice(hour)
 
         if (wHours.length < numHours) {
@@ -110,7 +127,7 @@ function App() {
 
         console.log(wHours)
         setwhours(wHours)
-
+        setCond(wHours[0].condition.text)
 
       })
     })
@@ -161,7 +178,7 @@ function App() {
 
 
       setMoreData(response.data);
-      console.log(response.data);
+      console.log('fweoufbouef',response.data);
     })
   }
 
@@ -169,10 +186,10 @@ function App() {
 
 
   return (
-    // {data.name != undefined &&
-    <div className={condition.includes("rain")? "app rain": condition.includes("sun") ? "app sunny" : condition.includes("thunder") ? "app storm" : "app other"}>
+ 
+    <div className={cond.includes("rain")? "app rain": cond.includes("sun") ? "app sunny" : cond.includes("thunder") ? "app storm" : "app other"}>
      
-{/* } */}
+ 
       <div className="search">
         <input type="text" 
         className="search"
@@ -219,7 +236,8 @@ function App() {
 
           <div className='w2'>
           <InfoCard title="Wind Speed" cond={data.wind} data={data.wind.speed.toFixed()+'mph'}/>
-          <InfoCard title="Pressure" cond={data.main} data={data.main.pressure+'hPa'}/>
+          {/* <Clothing title="Clothing" cond={condition}/> */}
+         
           </div>
         </div>
        }
@@ -253,11 +271,11 @@ function App() {
             <div className="WeekAhead">
               <p className='subheading'>Week Ahead</p>
 
-              <WWeather cond={moreData.list} day="Fri" data1={moreData.list[0]} data2={moreData.list[0]}/>
-              <WWeather cond={moreData.list} day="Sat" data1={moreData.list[8]} data2={moreData.list[8]}/>
-              <WWeather cond={moreData.list} day="Sun"data1={moreData.list[16]} data2={moreData.list[16]}/>
-              <WWeather cond={moreData.list} day="Mon"data1={moreData.list[24]} data2={moreData.list[24]}/>
-              <WWeather cond={moreData.list} day="Tue" data1={moreData.list[32]} data2={moreData.list[32]}/>
+              <WWeather cond={moreData.list} day={days[0]} data1={moreData.list[0]} data2={moreData.list[0]}/>
+              <WWeather cond={moreData.list} day={days[1]} data1={moreData.list[8]} data2={moreData.list[8]}/>
+              <WWeather cond={moreData.list} day={days[2]} data1={moreData.list[16]} data2={moreData.list[16]}/>
+              <WWeather cond={moreData.list} day={days[3]} data1={moreData.list[24]} data2={moreData.list[24]}/>
+              <WWeather cond={moreData.list} day={days[4]} data1={moreData.list[32]} data2={moreData.list[32]}/>
               {/* <WWeather cond={moreData.list} data1={moreData.list[40].main} data2={moreData.list[40].main}/> */}
             </div>
           }
@@ -269,7 +287,7 @@ function App() {
               <InfoCard title="Humidity" cond={data.main} data={data.main.humidity + '%'}/>
             </div>
 
-            <div className="wind_pressure">
+            {/* <div className="wind_pressure"> */}
               {/* <div className="ws">
                 <p className='heading'>Wind</p>
                 {data.wind ? <p>{data.wind.speed.toFixed()}mph</p> : null}
@@ -281,7 +299,7 @@ function App() {
               {/* <Dial windDegree={whours[0].wind_degree}/> */}
               {/* <InfoCard title="Wind Speed" cond={data.wind} data={data.wind.speed.toFixed()+'mph'}/> */}
               
-            </div>
+            {/* </div> */}
             <div className="sunrise_sunset">
 
               <InfoCard title="Sunrise" cond={data.sys} data={new Date(data.sys.sunrise * 1000).toLocaleTimeString().slice(0,5)}/>
@@ -290,8 +308,9 @@ function App() {
             </div>
             <div className="visibility_clothing">
               <InfoCard title="Visibility" cond={data.visibility} data={data.visibility/1000+'mi'} />
+              <InfoCard title="Pressure" cond={data.main} data={data.main.pressure+'hPa'}/>
             {/* hello {condition} */}
-              <Clothing title="Clothing" cond={condition}/>
+              
             </div>
             
           </div>

@@ -16,7 +16,7 @@
 }
 
 .other{
-background: url('./assets/Sunny.gif') no-repeat center center/cover;
+background: url('./assets/sunny.gif') no-repeat center center/cover;
 
   /* background: url('./assets/j6.gif') no-repeat center center/cover; */
 
@@ -189,7 +189,7 @@ h1{
 .app .middle{
 
   /* padding-top: 20em; */
-  padding-bottom: 3em;
+  padding-bottom: 1em;
   /* padding-top: 7rem; */
   /* border: 2pt solid red; */
   justify-content: center;
