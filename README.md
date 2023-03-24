@@ -1,2 +1,2 @@
 # GUI Weather app
-nehaal is a duty yute
+nehaal is not a duty yute
