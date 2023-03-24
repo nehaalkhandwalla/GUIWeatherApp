@@ -5,6 +5,7 @@ import Clothing from './Clothing';
 import rainpic from './assets/rain.png'
 import temppic from './assets/temp.png'
 import windpic from './assets/wind.png'
+import sunpic from './assets/sun.png'
 import Whours from './Whours';
 import WWeather from './WWeather';
 import WDial from './WDial';
@@ -69,7 +70,8 @@ function App() {
     const days = [];
   
     for (let i = 1; i <= 5; i++) {
-      const nextDay = new Date(today.getTime() + i * 24 * 60 * 60 * 1000);
+      let nextDay = new Date(today.getTime() + i * 24 * 60 * 60 * 1000);
+      nextDay = nextDay.toDateString().slice(0, 3);
       days.push(nextDay);
     }
   
@@ -115,7 +117,7 @@ function App() {
         // setHours(current.getSeconds())
         setCondition(data.current.condition.text)
         console.log(data)
-        console.log(" CONDITION -- ", whours[0].condition.text)
+        // console.log(" CONDITION -- ", whours[0].condition.text)
         var wHours = data.forecast.forecastday[0].hour.slice(hour)
 
         if (wHours.length < numHours) {
@@ -125,7 +127,7 @@ function App() {
         }
 
 
-        console.log(wHours)
+        console.log("qerr4r2qefwrgfw",wHours)
         setwhours(wHours)
         setCond(wHours[0].condition.text)
 
@@ -179,6 +181,7 @@ function App() {
 
       setMoreData(response.data);
       console.log('fweoufbouef',response.data);
+      console.log(moreData.list[4].weather[0].icon)
     })
   }
 
@@ -187,7 +190,7 @@ function App() {
 
   return (
  
-    <div className={cond.includes("rain")? "app rain": cond.includes("sun") ? "app sunny" : cond.includes("thunder") ? "app storm" : "app other"}>
+    <div className={cond.includes("rain")? "app rain": cond.includes("sun") ? "app sunny" : cond.includes("Thundery") ? "app storm" : "app other"}>
      
  
       <div className="search">
@@ -225,7 +228,8 @@ function App() {
           <div className="preview">
             {whours[0] ? <p><img src={rainpic} alt="rain image" height="30" width="20"></img>{whours[0].will_it_rain}%</p> : null}
             {whours[0] ? <p><img src={temppic} alt="temp image" height="30" width="20"></img>{whours[0].humidity}%</p> : null}
-            {whours[0] ? <p><img src={windpic} alt="wind image" height="30" width="30"></img>{whours[0].gust_mph}mph</p> : null}
+            {/* {whours[0] ? <p><img src={windpic} alt="wind image" height="30" width="30"></img>{whours[0].gust_mph}mph</p> : null} */}
+            {whours[0] ? <p><img src={sunpic} alt="sun image" height="30" width="30"></img>{whours[0].uv}</p> : null}
           </div>
           }
         </div>
@@ -236,7 +240,7 @@ function App() {
 
           <div className='w2'>
           <InfoCard title="Wind Speed" cond={data.wind} data={data.wind.speed.toFixed()+'mph'}/>
-          {/* <Clothing title="Clothing" cond={condition}/> */}
+          <Clothing title="Clothing" cond={condition}/>
          
           </div>
         </div>
@@ -249,7 +253,6 @@ function App() {
 
                 <div className="day_date">
                 <p className='subheading'>Today</p>
-                <p className='subheading'>23 Mar</p>
                 </div>
                 <div className="test">
                 {/* <p>Today</p> */}
@@ -270,7 +273,6 @@ function App() {
             data.name != undefined &&
             <div className="WeekAhead">
               <p className='subheading'>Week Ahead</p>
-
               <WWeather cond={moreData.list} day={days[0]} data1={moreData.list[0]} data2={moreData.list[0]}/>
               <WWeather cond={moreData.list} day={days[1]} data1={moreData.list[8]} data2={moreData.list[8]}/>
               <WWeather cond={moreData.list} day={days[2]} data1={moreData.list[16]} data2={moreData.list[16]}/>
